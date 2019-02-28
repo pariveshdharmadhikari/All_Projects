@@ -1,0 +1,21 @@
+#container{
+    margin-top: 10px;
+    padding-top:5px;
+    margin-left:32%;
+    text-align: center;
+   
+   border-color: black;
+    height:40px;
+    width:350px;
+  }
+
+input{
+  margin-right:10px;
+}
+
+button{
+  background-color: #1678C2;
+  color:white;
+  border-radius: 7px;
+  height: 35px;
+}  
