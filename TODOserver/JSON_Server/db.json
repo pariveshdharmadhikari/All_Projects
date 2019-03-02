@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "task": "I started js",
+      "id": 1
+    },
+    {
+      "task": "i learn es6",
+      "id": 2
+    },
+    {
+      "task": "i learn react",
+      "id": 3
+    },
+    {
+      "task": "I perform practical task",
+      "id": 4
+    },
+    {
+      "task": "i made to do app",
+      "id": 6
+    },
+    {
+      "task": "i made to do app in json",
+      "id": 7
+    }
+  ]
+}
