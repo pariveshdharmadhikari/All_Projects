@@ -107,7 +107,7 @@ class Taskbar extends React.Component {
             <div className='taskbar'>
                 <form onSubmit={this.submitTerm}>
                     <h4>Add Task</h4>
-                    <input value={this.state.inputterm} onChange={this.setTerm} ></input>
+                    <input value={this.state.inputterm} onChange={this.setTerm} required='required'></input>
                     {!this.state.editState && <button className="ui button primary" type="submit" >ADD</button>}
                     {this.state.editState && <button className="ui button primary" type="submit" >SAVE</button>}
                 </form>
