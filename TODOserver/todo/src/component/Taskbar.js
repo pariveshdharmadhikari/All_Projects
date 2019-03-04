@@ -1,7 +1,7 @@
 import React from 'react'
-import './Taskbar.css';
+import '../css/Taskbar.css';
 import { connect } from 'react-redux';
-import { TodoAdd, fetchTasks, deleteTasks, editTask } from './action'
+import { TodoAdd, fetchTasks, deleteTasks, editTask } from '../action'
 import { toastr } from 'react-redux-toastr';
 
 class Taskbar extends React.Component {
