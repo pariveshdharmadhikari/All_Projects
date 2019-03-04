@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-
+import {reducer as toastrReducer} from 'react-redux-toastr';
 
 const TodoItem = (state=[],action)=>{
    
@@ -17,5 +17,7 @@ const TodoItem = (state=[],action)=>{
 
 //it will make combine set of reducers
 export default combineReducers({
-    tasks:TodoItem
+    tasks:TodoItem,
+    toastr: toastrReducer
+    
 });

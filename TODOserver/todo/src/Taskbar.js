@@ -2,6 +2,7 @@ import React from 'react'
 import './Taskbar.css';
 import { connect } from 'react-redux';
 import { TodoAdd, fetchTasks, deleteTasks, editTask } from './action'
+import { toastr } from 'react-redux-toastr';
 
 class Taskbar extends React.Component {
     constructor(props) {
@@ -15,14 +16,14 @@ class Taskbar extends React.Component {
         }
     }
 
-    componentDidMount(){
-        this.props.fetchTasks(); 
+    componentDidMount() {
+        this.props.fetchTasks();
     }
 
     //this method takes input from input tag and set it to the state 'inputterm'.
     //this method will call from the onChange() of input tag. 
     setTerm = (event) => {
-    
+
         this.setState({
             inputterm: event.target.value,
         });
@@ -31,59 +32,53 @@ class Taskbar extends React.Component {
     //this method invokes when user add the task
     //this method call ActionCreator 'TodoAdd' and pass inputterm state in it.
     submitTerm = (event) => {
-        if(this.state.editState){
-            
-        event.preventDefault();
-        if (this.state.inputterm !== ''){
-        this.props.editTask(this.state.id, {task:this.state.inputterm});
-        
-        this.setState({ inputterm: '', editState: false });
+        const { inputterm, editState, id } = this.state;
+        if (this.state.editState) {
+            event.preventDefault();
+            if (inputterm !== '') {
+                this.props.editTask(id, { task: inputterm });
+                toastr.info(inputterm, 'Edited Successfull');
+                this.setState({ inputterm: '', editState: false });
+            }
         }
-        }
-        else{
-        event.preventDefault();
-        if (this.state.inputterm !== '' && this.state.editState === false) {
-            this.props.TodoAdd(this.state.inputterm);
-            
-            this.setState({ inputterm: '' });
-        }
+        else {
+            event.preventDefault();
+            if (inputterm !== '' && editState === false) {
+                this.props.TodoAdd(inputterm);
+                toastr.success(inputterm, 'Added Successfull');
+                this.setState({ inputterm: '' });
+
+            }
+
         }
     }
 
-   // this method invokes when user clicks on the delete icon of perticular task.
-   // this method call ActionCreator 'TodoDelete' and pass id of selected task in it.
-    removetask = (task,id) => {
+
+    // this method invokes when user clicks on the delete icon of perticular task.
+    // this method call ActionCreator 'TodoDelete' and pass id of selected task in it.
+    removetask = (task, id) => {
         const answer = window.confirm(`Are you sure To delete "${task}" ?`);
-        console.log(answer,'answer');
-        if(answer)
-        this.props.deleteTasks(id);
+        if (answer)
+            this.props.deleteTasks(id);
+        toastr.error(task, 'Deleted Successfull');
     }
 
     //this method invokes when user hit the edit icon of perticular task.
     //set some state to perform editing in selected task.
-    edittask = (task,id) => {
+    edittask = (task, id) => {
         this.setState({
-            inputterm:task,
+            inputterm: task,
             editState: true,
             id: id
         });
     }
 
-    //this method invokes when user hit the save button for saving the updated task.
-    //this method call ActionCreator 'TodoEdit' and pass 'id' of selected task and the updated 'inputterm' in it.
-    // submiteditterm = () => {
-    //     this.props.TodoEdit(this.state.id, this.state.inputterm);
-    //     this.setState({
-    //         inputterm: '',
-    //         editState: false
-    //     });
-    // }
 
     //this method render the list of tasks.
     //this method is calling from the render() method.
     taskList = () => {
-        
-            if(this.props.tasks){
+
+        if (this.props.tasks) {
             const data = this.props.tasks.map((task, index) => {
                 return (
                     <div className="taskitem" key={index}>
@@ -91,8 +86,8 @@ class Taskbar extends React.Component {
                         <div className="maintask">
                             {task.task}
 
-                            <i onClick={() => this.removetask(task.task,task.id)} className="eraser icon ierase large"></i>
-                            <i onClick={() => this.edittask(task.task,task.id)} className="edit icon ierase large"></i>
+                            <i onClick={() => this.removetask(task.task, task.id)} className="eraser icon ierase large"></i>
+                            <i onClick={() => this.edittask(task.task, task.id)} className="edit icon ierase large"></i>
                         </div>
                     </div>
                 );
@@ -118,12 +113,11 @@ class Taskbar extends React.Component {
         );
     };
 }
-
 //It provide state in our component as a props.
 const mapStateToProps = (state) => {
-    return { tasks: state.tasks.task}
+    return { tasks: state.tasks.task }
 }
 
 // connect method connects the ActionCreator and mapStateToProps to our
 // Class Component 'Taskbar'.
-export default connect(mapStateToProps, { TodoAdd , fetchTasks , deleteTasks , editTask })(Taskbar);
+export default connect(mapStateToProps, { TodoAdd, fetchTasks, deleteTasks, editTask })(Taskbar);
