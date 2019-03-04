@@ -6,6 +6,9 @@
   padding-left:15px;
   margin-top :3px;
 }
+#errorspan{
+  color:red;
+}
 .maintask{
    width:100%;
    font-size: 20px;

@@ -23,7 +23,6 @@ class Taskbar extends React.Component {
     //this method takes input from input tag and set it to the state 'inputterm'.
     //this method will call from the onChange() of input tag. 
     setTerm = (event) => {
-
         this.setState({
             inputterm: event.target.value,
         });
@@ -32,6 +31,7 @@ class Taskbar extends React.Component {
     //this method invokes when user add the task
     //this method call ActionCreator 'TodoAdd' and pass inputterm state in it.
     submitTerm = (event) => {
+        event.preventDefault();
         const { inputterm, editState, id } = this.state;
         if (this.state.editState) {
             event.preventDefault();
@@ -51,6 +51,7 @@ class Taskbar extends React.Component {
             }
 
         }
+
     }
 
 
@@ -58,9 +59,10 @@ class Taskbar extends React.Component {
     // this method call ActionCreator 'TodoDelete' and pass id of selected task in it.
     removetask = (task, id) => {
         const answer = window.confirm(`Are you sure To delete "${task}" ?`);
-        if (answer)
+        if (answer) {
             this.props.deleteTasks(id);
-        toastr.error(task, 'Deleted Successfull');
+            toastr.error(task, 'Deleted Successfull');
+        }
     }
 
     //this method invokes when user hit the edit icon of perticular task.
@@ -77,7 +79,6 @@ class Taskbar extends React.Component {
     //this method render the list of tasks.
     //this method is calling from the render() method.
     taskList = () => {
-
         if (this.props.tasks) {
             const data = this.props.tasks.map((task, index) => {
                 return (
@@ -102,9 +103,11 @@ class Taskbar extends React.Component {
             <div className='taskbar'>
                 <form onSubmit={this.submitTerm}>
                     <h4>Add Task</h4>
-                    <input value={this.state.inputterm} onChange={this.setTerm} required='required'></input>
+                    <input value={this.state.inputterm} onChange={this.setTerm} maxLength="80" required='required'></input>
+                    
                     {!this.state.editState && <button className="ui button primary" type="submit" >ADD</button>}
                     {this.state.editState && <button className="ui button primary" type="submit" >SAVE</button>}
+                    {this.state.inputterm.length>=75 && <span id='errorspan'>size should not more than 80 characters. Remaining  ({80-this.state.inputterm.length})</span>}
                 </form>
                 <div>
                     {this.taskList()}
