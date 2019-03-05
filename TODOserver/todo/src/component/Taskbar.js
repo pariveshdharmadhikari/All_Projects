@@ -32,8 +32,8 @@ class Taskbar extends React.Component {
     //this method call ActionCreator 'TodoAdd' and pass inputterm state in it.
     submitTerm = (event) => {
         event.preventDefault();
-        const { inputterm, allIds, editState, id } = this.state;
-        this.setState(({ allIds: [...allIds, id] }));
+        const { inputterm, editState, id } = this.state;
+    
         if (this.state.editState) {
             event.preventDefault();
             if (inputterm !== '') {
@@ -71,13 +71,11 @@ class Taskbar extends React.Component {
     //set some state to perform editing in selected task.
 
     edittask = (task, id) => {
-
-        this.setState({
+            this.setState({
             inputterm: task,
             editState: true,
             id: id,
         });
-
     }
 
 
@@ -89,9 +87,7 @@ class Taskbar extends React.Component {
 
                 return (
                     <div className="taskitem" id={`my${task.id}`} key={index}>
-
                         <div className="maintask ">
-
                             <ul>
                                 <li>
                                     {task.task}

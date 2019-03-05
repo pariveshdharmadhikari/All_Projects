@@ -48,3 +48,6 @@ h4{
   margin-top: 7px;
   margin-bottom: 7px;
 }
+ .taskitem :hover{
+   font-size: 21px;
+ }
