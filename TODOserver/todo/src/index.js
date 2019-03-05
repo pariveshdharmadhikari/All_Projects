@@ -18,7 +18,7 @@ ReactDOM.render(
       timeOut={3000}
       newestOnTop={false}
       preventDuplicates
-      position="top-right"
+      position="bottom-right"
       transitionIn="fadeIn"
       transitionOut="fadeOut"
       progressBar
