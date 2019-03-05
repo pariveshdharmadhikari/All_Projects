@@ -13,6 +13,12 @@
 .ed{
   border-color:#1678C2;
 }
+ i{
+   color:#1678C2;
+ }
+ i:hover{
+  color:rgb(4, 57, 99);
+ }
 
 #errorspan{
   color:red;
