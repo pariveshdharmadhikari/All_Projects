@@ -89,11 +89,11 @@ class Taskbar extends React.Component {
                     <div className="taskitem" id={`my${task.id}`} key={index}>
                         <div className="maintask ">
                             <ul>
-                                <li>
+                                <div><li>
                                     {task.task}
                                     <i onClick={() => this.removetask(task.task, task.id)} className="eraser icon ierase large"></i>
                                     <i onClick={() => this.edittask(task.task, task.id)} className="edit icon ierase large"></i>
-                                </li>
+                                </li></div>
                             </ul>
                         </div>
                     </div>
@@ -114,6 +114,7 @@ class Taskbar extends React.Component {
                         onChange={this.setTerm}
                         maxLength="80"
                         required='required'
+                        autoFocus
                     ></input>}
 
                     {this.state.editState && <input
@@ -122,6 +123,7 @@ class Taskbar extends React.Component {
                         onChange={this.setTerm}
                         maxLength="80"
                         required='required'
+                        autoFocus
                     ></input>}
 
                     {!this.state.editState && <button

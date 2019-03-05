@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "task": "I started js",
+      "task": "I started",
       "id": 1
     },
     {
@@ -9,12 +9,8 @@
       "id": 6
     },
     {
-      "task": "added",
-      "id": 7
-    },
-    {
-      "task": "carjb",
-      "id": 8
+      "task": "updated",
+      "id": 9
     }
   ]
 }

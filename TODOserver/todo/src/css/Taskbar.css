@@ -19,10 +19,15 @@
  i:hover{
   color:rgb(4, 57, 99);
  }
+ i:active { 
+   color: yellow;
+}
 
 #errorspan{
   color:red;
 }
+
+
 .maintask{
    width:100%;
    font-size: 20px;
