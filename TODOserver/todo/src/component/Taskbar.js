@@ -63,7 +63,7 @@ class Taskbar extends React.Component {
         const answer = window.confirm(`Are you sure to delete "${task}" ?`);
         if (answer) {
             this.props.deleteTasks(id);
-            // toastr.error(task, 'Deleted Successfully');
+            toastr.error(task, 'Deleted Successfully');
         }
     }
 
