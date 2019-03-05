@@ -2,6 +2,7 @@ import tasks from '../api/TaskAPI'
 import axios from 'axios';
 
 
+
 export const TodoAdd = task=> async (dispatch) => {
     await tasks.post('/tasks', {task});
     const response = await tasks.get('/tasks');
@@ -12,7 +13,7 @@ export const TodoAdd = task=> async (dispatch) => {
 }
 
 export const deleteTasks = (id) => async (dispatch) => {
-    await axios.delete(`http://localhost:3003/tasks/${id}`);
+    await axios.delete(`http://localhost:3004/tasks/${id}`);
     const response = await tasks.get('/tasks');
     dispatch({
         type: 'FETCH_TASKS',

@@ -10,9 +10,9 @@ class Taskbar extends React.Component {
         this.state = {
             inputterm: '',
             render: false,
-            allTasks: [],
+            allIds: [],
             editState: false,
-            id: ''
+            id: '',
         }
     }
 
@@ -32,12 +32,14 @@ class Taskbar extends React.Component {
     //this method call ActionCreator 'TodoAdd' and pass inputterm state in it.
     submitTerm = (event) => {
         event.preventDefault();
-        const { inputterm, editState, id } = this.state;
+        const { inputterm, allIds, editState, id } = this.state;
+        this.setState(({ allIds: [...allIds, id] }));
         if (this.state.editState) {
             event.preventDefault();
             if (inputterm !== '') {
+                document.getElementById(`my${id}`).classList.remove("editable");
                 this.props.editTask(id, { task: inputterm });
-                toastr.info(inputterm, 'Edited Successfull');
+                toastr.info(inputterm, 'Edited Successfully');
                 this.setState({ inputterm: '', editState: false });
             }
         }
@@ -45,7 +47,7 @@ class Taskbar extends React.Component {
             event.preventDefault();
             if (inputterm !== '' && editState === false) {
                 this.props.TodoAdd(inputterm);
-                toastr.success(inputterm, 'Added Successfull');
+                toastr.success(inputterm, 'Added Successfully');
                 this.setState({ inputterm: '' });
 
             }
@@ -58,21 +60,24 @@ class Taskbar extends React.Component {
     // this method invokes when user clicks on the delete icon of perticular task.
     // this method call ActionCreator 'TodoDelete' and pass id of selected task in it.
     removetask = (task, id) => {
-        const answer = window.confirm(`Are you sure To delete "${task}" ?`);
+        const answer = window.confirm(`Are you sure to delete "${task}" ?`);
         if (answer) {
             this.props.deleteTasks(id);
-            toastr.error(task, 'Deleted Successfull');
+            // toastr.error(task, 'Deleted Successfully');
         }
     }
 
     //this method invokes when user hit the edit icon of perticular task.
     //set some state to perform editing in selected task.
+
     edittask = (task, id) => {
+
         this.setState({
             inputterm: task,
             editState: true,
-            id: id
+            id: id,
         });
+
     }
 
 
@@ -81,14 +86,19 @@ class Taskbar extends React.Component {
     taskList = () => {
         if (this.props.tasks) {
             const data = this.props.tasks.map((task, index) => {
+
                 return (
-                    <div className="taskitem" key={index}>
+                    <div className="taskitem" id={`my${task.id}`} key={index}>
 
-                        <div className="maintask">
-                            {task.task}
+                        <div className="maintask ">
 
-                            <i onClick={() => this.removetask(task.task, task.id)} className="eraser icon ierase large"></i>
-                            <i onClick={() => this.edittask(task.task, task.id)} className="edit icon ierase large"></i>
+                            <ul>
+                                <li>
+                                    {task.task}
+                                    <i onClick={() => this.removetask(task.task, task.id)} className="eraser icon ierase large"></i>
+                                    <i onClick={() => this.edittask(task.task, task.id)} className="edit icon ierase large"></i>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 );
@@ -103,11 +113,33 @@ class Taskbar extends React.Component {
             <div className='taskbar'>
                 <form onSubmit={this.submitTerm}>
                     <h4>Add Task</h4>
-                    <input value={this.state.inputterm} onChange={this.setTerm} maxLength="80" required='required'></input>
-                    
-                    {!this.state.editState && <button className="ui button primary" type="submit" >ADD</button>}
-                    {this.state.editState && <button className="ui button primary" type="submit" >SAVE</button>}
-                    {this.state.inputterm.length>=75 && <span id='errorspan'>size should not more than 80 characters. Remaining  ({80-this.state.inputterm.length})</span>}
+                    {!this.state.editState && <input
+                        value={this.state.inputterm}
+                        onChange={this.setTerm}
+                        maxLength="80"
+                        required='required'
+                    ></input>}
+
+                    {this.state.editState && <input
+                        className='ed'
+                        value={this.state.inputterm}
+                        onChange={this.setTerm}
+                        maxLength="80"
+                        required='required'
+                    ></input>}
+
+                    {!this.state.editState && <button
+                        className="ui button primary"
+                        type="submit"
+                    >ADD</button>}
+
+                    {this.state.editState && <button
+                        className="ui button primary"
+                        type="submit"
+                    >SAVE</button>}
+
+                    {this.state.inputterm.length >= 75 && <span id='errorspan'>size should not more than 80 characters. Remaining  ({80 - this.state.inputterm.length})</span>}
+                
                 </form>
                 <div>
                     {this.taskList()}
