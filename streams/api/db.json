@@ -1,0 +1,32 @@
+{
+  "streams": [
+    {
+      "title": "mystream",
+      "description": "this is great stream",
+      "id": 1
+    },
+    {
+      "title": "priyanka",
+      "description": "shriwas",
+      "id": 15
+    },
+    {
+      "title": "drt4i5edrtyrd",
+      "description": "rod4ytif",
+      "userId": "100634448047070930080",
+      "id": 16
+    },
+    {
+      "title": "i am still learninig",
+      "description": "redux",
+      "userId": "100634448047070930080",
+      "id": 17
+    },
+    {
+      "title": "delete me",
+      "description": "delete me",
+      "userId": "100634448047070930080",
+      "id": 18
+    }
+  ]
+}
